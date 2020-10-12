@@ -1,0 +1,11 @@
+{
+    "saludo" : "Hola ",
+    "ayuda" : ["Soy un bot para la venta de vuelos\n",
+                "-Para ver todos los vuelos disponibles use /LIST (No recomendable debido a la cantidad de vuelos disponibles)\n\n",
+                "-Puede usar /searchd seguido del código IATA, nombre del aeropuerto, ciudad o país para buscar los vuelos que van hacia ese aeropuerto ej: /searchd Ecuador\n\n",
+                "-Puede usar /searcho seguido del código IATA, nombre del aeropuerto, ciudad o país para buscar los vuelos que dispone el aeropuerto ej: /searcho Estados Unidos\n\n",
+                "-Para comprar el vuelo de ida use /buy_ticket seguido del código IATA del aeropuerto de origen, después el código IATA al aeropuerto de destino y al último la cantidad de asientos ej: /buy_ticket UIO PTY 3\n\n",
+                "-Para comprar vuelo de ida-vuelta /buyrt_ticket seguido del código IATA del aeropuerto de origen, después el código IATA al aeropuerto de destino y al último la cantidad de asientos ej: /buy_ticket UIO PTY 3\n\n"],
+    "aceptar" : "Vuelo registrado.",
+    "cancelar" : "Registro cancelado."
+}
