@@ -1,6 +1,19 @@
 [
     {
         "icao": "SEQM",
+        "iata": "GYE",
+        "name": "Aeropuerto Internacional José Joaquín de Olmedo",
+        "city": "Guayaquil",
+        "state": "Guayas",
+        "country": "Ecuador",
+        "elevation": 9200,
+        "lat": -0.1291666667,
+        "lon": -78.3575,
+        "tz": "America\/Guayaquil",
+        "hours": "51min"
+    },
+    {
+        "icao": "SEQM",
         "iata": "UIO",
         "name": "Nuevo Aeropuerto Internacional Mariscal Sucre",
         "city": "Quito",
@@ -9,8 +22,7 @@
         "elevation": 9200,
         "lat": -0.1291666667,
         "lon": -78.3575,
-        "tz": "America\/Guayaquil",
-        "hours": "51min"
+        "tz": "America\/Guayaquil"
     },
     {
         "icao": "MPTO",
@@ -22,8 +34,7 @@
         "elevation": 135,
         "lat": 9.0713596344,
         "lon": -79.3834991455,
-        "tz": "America\/Panama",
-        "hours": "2h 10min"
+        "tz": "America\/Panama"
     },
     {
         "icao": "SEGS",
@@ -35,8 +46,7 @@
         "elevation": 207,
         "lat": -0.4537580013,
         "lon": -90.2658996582,
-        "tz": "Pacific\/Galapagos",
-        "hours": "1h 30min"
+        "tz": "Pacific\/Galapagos"
     },
     {
         "icao": "KBRO",
@@ -48,8 +58,7 @@
         "elevation": 22,
         "lat": 25.9067993164,
         "lon": -97.4259033203,
-        "tz": "America\/Chicago",
-        "hours": "15h 23min"
+        "tz": "America\/Chicago"
     },
     {
         "icao": "KJFK",
@@ -61,8 +70,7 @@
         "elevation": 13,
         "lat": 40.63980103,
         "lon": -73.77890015,
-        "tz": "America\/New_York",
-        "hours": "6h 14min"
+        "tz": "America\/New_York"
     },
     {
         "icao": "KFLL",
@@ -74,8 +82,7 @@
         "elevation": 9,
         "lat": 26.072599411,
         "lon": -80.1527023315,
-        "tz": "America\/New_York",
-        "hours": "4h 20min"
+        "tz": "America\/New_York"
     },
     {
         "icao": "SKBO",
@@ -87,8 +94,7 @@
         "elevation": 8361,
         "lat": 4.70159,
         "lon": -74.1469,
-        "tz": "America\/Bogota",
-        "hours": "1h 14min"
+        "tz": "America\/Bogota"
     },
     {
         "icao": "EHAM",
@@ -100,7 +106,6 @@
         "elevation": -11,
         "lat": 52.3086013794,
         "lon": 4.7638897896,
-        "tz": "Europe\/Amsterdam",
-        "hours": "14h 40min"
+        "tz": "Europe\/Amsterdam"
     }
 ]
