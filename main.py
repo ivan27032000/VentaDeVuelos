@@ -5,7 +5,15 @@ import json
 import time
 import datetime
 
-#TODO: cambiar la ruta en colab
+
+import telebot
+from vuelos import Aeropuerto, Vuelo
+from usuario import Registro_Vuelo, Usuario, Estado
+import json
+import time
+import datetime
+
+
 aeropuertos_json = json.load(open("aeropuertos.json", "r",encoding="utf-8", errors="ignore"))
 resp_bot = json.load(open("resp_bot.json", "r",encoding="utf-8", errors="ignore"))
 
@@ -25,10 +33,10 @@ def arreglar_texto(texto):
     longitud = len(texto_dividido)
 
     for i in range( 0, longitud):
-        if i != longitud - 1:
-            texto_arreglado += texto_dividido[i].capitalize() + " " 
-        else:
+        if i == longitud - 1:
             texto_arreglado += texto_dividido[i].capitalize() + "" 
+        else:
+            texto_arreglado += texto_dividido[i].capitalize() + " " 
 
     return texto_arreglado
 
@@ -85,8 +93,13 @@ def buscar_vuelos_destino(message):
     l_aeropuerto = []
     try:
         if len(mensaje) > 1:
-            mensj = " ".join(mensaje[1:])
-            mensj = mensj.upper()
+            if buscar_aeropuerto_iata(mensaje[1]) != None:
+                mensj = mensaje[1].upper()
+            else:
+                m = message.text
+                m = arreglar_texto(m)
+                mensj = arreglar_texto(m[8:])
+            print(mensj)
             for a in aeropuertos:
                 if mensj == a.iata:
                     l_aeropuerto.append(a)
@@ -120,8 +133,12 @@ def buscar_vuelos_origen(message):
     l_aeropuerto = []
     try:
         if len(mensaje) > 1:
-            mensj = " ".join(mensaje[1:])
-            mensj = mensj.upper()
+            if buscar_aeropuerto_iata(mensaje[1]) != None:
+                mensj = mensaje[1].upper()
+            else:
+                m = message.text
+                m = arreglar_texto(m)
+                mensj = arreglar_texto(m[8:])
             for a in aeropuertos:
                 if mensj == a.iata:
                     l_aeropuerto.append(a)
@@ -238,46 +255,45 @@ def comprar_vuelo_ida_vuelta(message):
 @bot.message_handler(func = lambda msg: buscar_usuario(msg.chat.id) != None)
 def escoger(message):
     usuario = buscar_usuario(message.chat.id)
-    if usuario:
-        #Para venta de ida
-        if usuario.estado == Estado.COMPRANDO_IDA:
-            try:
-                opcion = int(message.text) - 1
-                vuelos = []
-                for vuelo in usuario.__vuelos_temp__:
-                    vuelos.append(vuelo)
-                
-                for vuelo in vuelos:
-                    vuelo.asientos -= usuario.__cant_asientos_temp__
-                    usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelo, usuario.__cant_asientos_temp__ ))
-
-                bot.send_message(message.chat.id, "Vuelo registrado")
-                usuario.reset()
-                usuario.estado = Estado.BUSCANDO
-            except Exception:
-                pass
+    #Para venta de ida
+    if usuario.estado == Estado.COMPRANDO_IDA:
+        try:
+            opcion = int(message.text) - 1
+            vuelos = []
+            for vuelo in usuario.__vuelos_temp__:
+                vuelos.append(vuelo)
             
-        elif usuario.estado == Estado.COMPRANDO_IDA_VUELTA:
-            try:
-                opcion = int(message.text) - 1
-                vuelos = []
-                for vuelo in usuario.__vuelos_temp__:
-                    vuelos.append(vuelo)
-                
-                i = 0
-                for i in range(0, len(vuelos)):
-                    if i == opcion:
-                        vuelos[i].asientos -= usuario.__cant_asientos_temp__
-                        vuelos[i+1].asientos -= usuario.__cant_asientos_temp__
-                        usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelos[i], usuario.__cant_asientos_temp__ ))
-                        usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelos[i+1], usuario.__cant_asientos_temp__ ))
-
-                bot.send_message(message.chat.id, "Vuelo registrado")
-                usuario.reset()
-                usuario.estado = Estado.BUSCANDO
-            except Exception:
-                pass
             
+            vuelos[opcion].asientos -= usuario.__cant_asientos_temp__
+            usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelos[opcion], usuario.__cant_asientos_temp__ ))
+
+            bot.send_message(message.chat.id, "Vuelo registrado")
+            usuario.reset()
+            usuario.estado = Estado.BUSCANDO
+        except Exception:
+            pass
+        
+    elif usuario.estado == Estado.COMPRANDO_IDA_VUELTA:
+        try:
+            opcion = int(message.text) - 1
+            vuelos = []
+            for vuelo in usuario.__vuelos_temp__:
+                vuelos.append(vuelo)
+            
+            i = 0
+            for i in range(0, len(vuelos)):
+                if i == opcion:
+                    vuelos[i].asientos -= usuario.__cant_asientos_temp__
+                    vuelos[i+1].asientos -= usuario.__cant_asientos_temp__
+                    usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelos[i], usuario.__cant_asientos_temp__ ))
+                    usuario.registro_vuelos_comprados.append( Registro_Vuelo(vuelos[i+1], usuario.__cant_asientos_temp__ ))
+
+            bot.send_message(message.chat.id, "Vuelo registrado")
+            usuario.reset()
+            usuario.estado = Estado.BUSCANDO
+        except Exception:
+            bot.send_message(message.chat.id, "Ingresó mal la información")
+        
 
         
 
